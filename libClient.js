@@ -15,11 +15,15 @@ class ClientSocket {
             secure: false,
             rejectUnauthorized: false,
         });
-      
+        
         this.socket.connect();
     }
     get io(){
         return this.socket;
+    }
+
+    rooms( room ){
+        this.socket.emit('rooms', room);
     }
 }
 

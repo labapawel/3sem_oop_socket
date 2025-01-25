@@ -12,16 +12,29 @@ class ServerSocket {
     io = null; // socket.io
     port = 3000;    
     wartosc = 0;
+    dane = {};
 
     get io(){
         return this.io;
     }
 
     methods(){
-        // this.io.on('connection', (socket) => {
-        //     socket.emit('message', 'Witaj, jesteś połączony z serwerem');
+         this.io.on('connection', (socket) => {
 
-        // });
+            socket.on('rooms', (data) => {
+                // dołącz do pokoju
+                data.forEach(pokoj => {
+                    socket.join(pokoj);
+                    socket.emit('message', pokoj, this.dane[pokoj]);
+                });
+            });
+
+            socket.on('message', (rooms, data) => {
+                this.dane[rooms] = data; // zapisz dane do pokoju, w pamięci
+                this.io.to(rooms).emit('message', rooms, data );
+            })
+
+         });
     }
 
     init(){
