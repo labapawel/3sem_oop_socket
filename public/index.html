@@ -6,9 +6,41 @@
     <title>Stacja pogodowa</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+<body  class="bg-gradient-to-br from-blue-100 to-blue-300 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
+        <div class="bg-blue-600 text-white p-6 text-center">
+            <h1 class="text-3xl font-bold stacja"> --- </h1>
+            <p class="text-xl "><span class="date"></span>, <span class="time"></span></p>
+        </div>
+        <div class="p-6 grid grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg text-center col-span-2">
+                <h2 class="text-lg font-semibold text-blue-800">Temperatura</h2>
+                <p class="text-4xl font-bold text-blue-600 temperatura"> --- </p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg text-center">
+                <h2 class="text-lg font-semibold text-green-800">Wilgotność</h2>
+                <p class="text-3xl font-bold text-green-600 wilgotnosc_wzgledna"> --- </p>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg col-span-3 grid grid-cols-2">
+                <div class="text-center">
+                    <h2 class="text-lg font-semibold text-yellow-800">Kierunek Wiatru</h2>
+                    <p class="text-2xl font-bold text-yellow-600 kierunek_wiatru"> --- </p>
+                </div>
+                <div class="text-center">
+                    <h2 class="text-lg font-semibold text-yellow-800">Prędkość Wiatru</h2>
+                    <p class="text-2xl font-bold text-yellow-600 predkosc_wiatru"> --- </p>
+                </div>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg col-span-3 text-center">
+                <h2 class="text-lg font-semibold text-gray-800">Ciśnienie</h2>
+                <p class="text-3xl font-bold text-gray-700 cisnienie"> --- </p>
+            </div>
+        </div>
+    </div>
+
+
     <script src="script.js"></script>
 </body>
 </html>

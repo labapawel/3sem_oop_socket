@@ -1,25 +1,37 @@
 // https://danepubliczne.imgw.pl/api/data/synop/
 const ClientSocket = require('./libClient');
 
+class imgw extends ClientSocket {
 
-let klient1 = new ClientSocket("wss://localhost:3000");
+    getData() {
+        fetch('https://danepubliczne.imgw.pl/api/data/synop/')
+            .then(response => response.json())
+            .then(data => {
+                this.io.emit('message', "imgw", data);
+            });
+    }
+
+    constructor(host) {
+        super(host);
+        this.io.on('connect', () => {
+            this.rooms(['cron']);
+            this.getData();
+        });
+        this.io.on('message', (room, data) => {
+
+            let czas = new Date(data);
+            console.log(czas.toDateString());
+            
+
+            if (czas.getSeconds() < 10 && czas.getMinutes() == 10) {
+                   this.getData();
+            }
+        });
+
+    }
+}
 
 
-klient1.io.on('connect', () => {
-    klient1.rooms(['cron']);
-    
-    klient1.io.on('message', (room, data) => {
-        let czas = new Date(data);
-        if(czas.getSeconds() < 10)
-        {
-            fetch('https://danepubliczne.imgw.pl/api/data/synop/')
-                .then(response => response.json())
-                .then(data => {
-                    klient1.io.emit('message', "imgw", data);
-                });
 
-        }
-    }); 
+let klient1 = new imgw("wss://localhost:3000");
 
-    // klient1.io.emit('wiadomosc', "Wysyłam wiadomość do serwera");
-});

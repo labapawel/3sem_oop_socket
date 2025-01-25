@@ -1,0 +1,20 @@
+
+    .dk {
+        animation: myAnimation 1s infinite;
+    }
+
+    @keyframes myAnimation {
+        0% {
+           color: #fff;
+        }
+        24% {
+            
+        }
+    
+        75% {
+            color: #FFFFFF00;
+        }
+        100% {
+            color: #fff;
+        }
+    }
